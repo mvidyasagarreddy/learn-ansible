@@ -1,0 +1,32 @@
+- name: Setup Frontend
+  hosts: all
+  become: yes
+  tasks:
+    - name: Installing Nginx Server
+      ansible.builtin.yum:
+        name: nginx
+        state: latest
+
+    - name: Removing Old App content
+      ansible.builtin.file:
+        path: /usr/share/nginx/html/
+        state: absent
+
+    - name: Downloading Frontend Content
+      ansible.builtin.shell: curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+
+    - name: Extract Frontend Content
+      ansible.builtin.unarchive:
+        src: /tmp/frontend.zip
+        dest: /usr/share/nginx/html
+
+    - name: Update Frontend Configuration
+      ansible.builtin.copy:
+        src: /home/centos/roboshop-shell/roboshop.conf
+        dest: /etc/nginx/default.d/roboshop.conf
+
+    - name: Starting Nginx Server
+      ansible.builtin.service:
+        name: nginx
+        enabled: yes
+        state: restarted

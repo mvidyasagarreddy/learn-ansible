@@ -13,7 +13,9 @@
         state: absent
 
     - name: Downloading Frontend Content
-      ansible.builtin.shell: curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+      ansible.builtin.shell: curl https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+      args:
+        chdir: /tmp
 
     - name: Extract Frontend Content
       ansible.builtin.unarchive:

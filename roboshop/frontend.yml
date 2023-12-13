@@ -7,14 +7,14 @@
         name: nginx
         state: latest
 
-    - name: Removing old nginx
+    - name: Remove directory
       ansible.builtin.file:
-        path: /usr/share/nginx/html/
+        path: /usr/share/nginx/html
         state: absent
 
-    - name: Creating new nginx
+    - name: Create directory
       ansible.builtin.file:
-        path: /usr/share/nginx/html/
+        path: /usr/share/nginx/html
         state: directory
 
     - name: Download and extract frontend content
@@ -23,12 +23,17 @@
         dest: /usr/share/nginx/html
         remote_src: yes
 
-    - name: Update Frontend Configuration
-      ansible.builtin.copy:
+    - name: Copy nginx configuration
+      ansible.builtin.template:
+        src: nginx.conf
+        dest: /etc/nginx/nginx.conf
+
+    - name: Copy roboshop configuration
+      ansible.builtin.template:
         src: roboshop.conf
         dest: /etc/nginx/default.d/roboshop.conf
 
-    - name: Starting Nginx Server
+    - name: Start Nginx Service
       ansible.builtin.systemd:
         state: restarted
         name: nginx

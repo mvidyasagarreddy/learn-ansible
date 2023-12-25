@@ -7,18 +7,15 @@
         name: nginx
         state: latest
 
-    - name: Remove old App file
+    - name: Remove directory
       ansible.builtin.file:
-        path: /usr/share/nginx/html/*
+        path: /usr/share/nginx/html/
         state: absent
 
-    - name: Create App file
+    - name: Create directory
       ansible.builtin.file:
         path: /usr/share/nginx/html/
         state: directory
-
-    - name: Downloading Frontend Content
-      ansible.builtin.shell: curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
 
     - name: Download and extract frontend content
       ansible.builtin.unarchive:
@@ -33,6 +30,6 @@
 
     - name: Start Nginx Service
       ansible.builtin.systemd:
+        state: restarted
         name: nginx
         enabled: yes
-        state: restarted

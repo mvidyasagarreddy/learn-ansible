@@ -2,7 +2,7 @@
   hosts: all
   become: true
   tasks:
-    - name: Install the latest version of Apache
+    - name: Install the latest version of nginx
       ansible.builtin.yum:
         name: nginx
         state: latest
@@ -15,7 +15,7 @@
     - name: Create App file
       ansible.builtin.file:
         path: /usr/share/nginx/html/
-        state: present
+        state: directory
 
     - name: Downloading Frontend Content
       ansible.builtin.shell: curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip

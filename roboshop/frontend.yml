@@ -20,13 +20,13 @@
     - name: Downloading Frontend Content
       ansible.builtin.shell: curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
 
-    - name: Extract Frontend Content
+    - name: Download and extract frontend content
       ansible.builtin.unarchive:
-        src: /tmp/frontend.zip
+        src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
         dest: /usr/share/nginx/html
         remote_src: yes
 
-    - name: Update Frontend Configuration
+    - name: Copy roboshop configuration
       ansible.builtin.copy:
         src: roboshop.conf
         dest: /etc/nginx/default.d/roboshop.conf

@@ -1,5 +1,5 @@
 - name: Demo on Loops
-  hosts: local host
+  hosts: localhost
   connection: local
   tasks:
     - name: Printing fruit names in a loop

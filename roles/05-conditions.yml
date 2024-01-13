@@ -1,0 +1,11 @@
+- name: Conditions
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Print Hello Universe
+      ansible.builtin.debug:
+        msg: Hello Universe
+
+    - name: Hello Hello World
+      ansible.builtin.debug:
+        msg: Hello World

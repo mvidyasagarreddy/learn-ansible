@@ -1,0 +1,7 @@
+- name: Demo on how to fetch from the aws ssm
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Print the value of the key
+      ansible.builtin.debug:
+        msg: "{{ lookup('aws_ssm', 'Hello', region='us-east-1' ) }}"

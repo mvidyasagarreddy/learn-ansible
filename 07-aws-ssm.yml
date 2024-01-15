@@ -4,4 +4,4 @@
   tasks:
     - name: Print the value of the key
       ansible.builtin.debug:
-        msg: "{{ lookup('aws_ssm', 'Hello', region='us-east-1' ) }}"
+        msg: "{{ lookup('aws_ssm', 'demo-key', region='us-east-1' ) }}"

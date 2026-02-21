@@ -6,3 +6,7 @@
     - name: Print Hello World
       ansible.builtin.debug:
         msg: Hello World
+
+    - name: include tasks
+      ansible.builtin.include_tasks:
+      file: universe.yml

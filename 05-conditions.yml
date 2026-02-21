@@ -1,0 +1,41 @@
+---
+- name: Demo Ansible Conditionals on Localhost
+  hosts: localhost
+  connection: local
+  gather_facts: yes
+
+  vars:
+    install_package: true
+    package_name: git
+
+  tasks:
+
+    - name: Print OS Family
+      debug:
+        msg: "OS Family is {{ ansible_os_family }}"
+
+    - name: Install package only if install_package is true
+      yum:
+        name: "{{ package_name }}"
+        state: present
+      when: install_package and ansible_os_family == "RedHat"
+
+    - name: Show message if package installation skipped
+      debug:
+        msg: "Package installation skipped"
+      when: not install_package
+
+    - name: Run task only on CentOS
+      debug:
+        msg: "This is running on CentOS"
+      when: ansible_distribution == "CentOS"
+
+    - name: Check if file exists
+      stat:
+        path: /etc/passwd
+      register: file_check
+
+    - name: Print message if file exists
+      debug:
+        msg: "/etc/passwd exists"
+      when: file_check.stat.exists

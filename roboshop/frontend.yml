@@ -6,8 +6,42 @@
       ansible.builtin.yum:
         name: nginx
         state: latest
-    - name: Ensure Nginx service is running and enabled
-      ansible.builtin.systemd:
+
+
+    - name: Remove old content from /usr/share/nginx/html
+      ansible.builtin.file:
+        path: /usr/share/nginx/html
+        state: absent
+
+    - name: Create directory /usr/share/nginx/html
+      ansible.builtin.file:
+        path: /usr/share/nginx/html
+        state: directory
+
+    - name: Download and extract frontend
+      ansible.builtin.unarchive:
+        src: https://roboshop-artifacts.s3.amazonaws.com/frontend.zip
+        dest: /usr/share/nginx/html
+        remote_src: yes
+
+    - name: Update Frontend Configuration
+      copy:
+        src: /home/centos/learn-ansible/roboshop/roboshop.conf
+        dest: /etc/nginx/default.d/roboshop.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Restart nginx
+
+    - name: Enable and Start nginx
+      service:
         name: nginx
         state: started
         enabled: yes
+
+  handlers:
+
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted

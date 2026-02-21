@@ -1,5 +1,5 @@
 - name: Install and start Nginx on CentOS
-  hosts: webservers
+  hosts: all
   become: yes
   tasks:
     - name: Ensure Nginx is at the latest version

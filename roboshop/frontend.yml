@@ -26,12 +26,8 @@
 
     - name: Update Frontend Configuration
       copy:
-        src: /home/centos/learn-ansible/roboshop/roboshop.conf
+        src: roboshop.conf
         dest: /etc/nginx/default.d/roboshop.conf
-        owner: root
-        group: root
-        mode: '0644'
-      notify: Restart nginx
 
     - name: Enable and Start nginx
       service:
@@ -39,9 +35,3 @@
         state: started
         enabled: yes
 
-  handlers:
-
-    - name: Restart nginx
-      service:
-        name: nginx
-        state: restarted

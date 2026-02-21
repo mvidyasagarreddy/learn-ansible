@@ -1,0 +1,8 @@
+#Demo import tasks / include tasks demo ansible
+
+- name: Demo on load another file
+  hosts: all
+  tasks:
+    - name: Print Hello World
+      ansible.builtin.debug:
+        msg: Hello World

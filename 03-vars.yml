@@ -1,9 +1,20 @@
-- name: ansible variables
-  hosts: all
-  vars:
-  URL: www.example.com
+# - name: ansible variables
+#   hosts: all
+#   vars:
+#   URL: www.example.com
   
+#   tasks:
+#     - name: print url
+#       ansible.builtin.debug:
+#         msg: URL is {{ URL }}
+    
+- name: Register variables
+  hosts: localhost
+  connection: local
   tasks:
-    - name: print url
+    - name: Shell Command
+      ansible.builtin.shell: uptime
+      register: output
+    - name: Print output
       ansible.builtin.debug:
-        msg: URL is {{ URL }}
+        msg: "{{ output }}"

@@ -1,0 +1,8 @@
+- name: Fetch aws ssm parameter
+  hosts: localhost
+  connection: localhost
+  tasks:
+   - name: Fetch and print aws ssm parameter
+     ansiblee.builtin.debug:
+      msg: parameter is {{ lookup('amazon.aws.aws_ssm', 'test.test') }}
+

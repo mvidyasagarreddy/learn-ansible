@@ -1,6 +1,6 @@
 - name: Fetch aws ssm parameter
   hosts: localhost
-  connection: localhost
+  connection: local
   tasks:
    - name: Fetch and print aws ssm parameter
      ansiblee.builtin.debug:

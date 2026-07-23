@@ -4,5 +4,5 @@
   tasks:
    - name: Fetch and print aws ssm parameter
      ansiblee.builtin.debug:
-      msg: parameter is {{ lookup('amazon.aws.aws_ssm', 'test.test') }}
+      msg: parameter is {{ lookup('amazon.aws.aws_ssm', 'test.test', region='us-east-1') }}
 
